@@ -162,7 +162,7 @@ public class ClientImp extends UnicastRemoteObject implements IClient {
                     JOptionPane.showMessageDialog(this.cnvGui, "something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else if (mkof.getFileType().startsWith("audio/")) {
-                ImageIcon icon = new ImageIcon(getClass().getResource("/music-note.png"));
+                ImageIcon icon = new ImageIcon(getClass().getResource("/client/music-note.png"));
                 JButton imageBtn = new JButton(icon);
                 imageBtn.addActionListener((ae) -> {
                     try (FileOutputStream fos = new FileOutputStream(new java.io.File(".").getCanonicalPath() + "/" + mkof.getTitle())) {
@@ -177,7 +177,7 @@ public class ClientImp extends UnicastRemoteObject implements IClient {
                 imageBtn.setSize(200, 200);
                 filePanel.add(imageBtn);
             } else {
-                ImageIcon icon = new ImageIcon(getClass().getResource("/output-onlinepngtools (2).png"));
+                ImageIcon icon = new ImageIcon(getClass().getResource("/client/output-onlinepngtools (2).png"));
                 JButton imageBtn = new JButton(icon);
                 imageBtn.addActionListener((ae) -> {
                     try (FileOutputStream fos = new FileOutputStream(new java.io.File(".").getCanonicalPath() + "/" + mkof.getTitle())) {
