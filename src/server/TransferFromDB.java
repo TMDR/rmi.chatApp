@@ -9,10 +9,7 @@
  * @author tmdr
  */
 package server;
-import Interfaces.ShareableFile;
-import Interfaces.Message;
-import Interfaces.IGroup;
-import Interfaces.IClient;
+import Interfaces.*;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -41,6 +38,7 @@ public class TransferFromDB {
         return clients;
     }
     public HashMap<String, IGroup> getGroups(HashMap<String,IClient> clientsConnected) throws SQLException, ClassNotFoundException, RemoteException {
+        //TODO 1: possible join?
         HashMap<String, IGroup> groups = new HashMap<>();
         Statement GetGroupIDsStatement = DataSource.INSTANCE.getConnection().createStatement();
         GetGroupIDsStatement.setQueryTimeout(60);// this gives the query 1 min to be executed
@@ -61,6 +59,7 @@ public class TransferFromDB {
     }
 
     public HashMap<String, ArrayList<Message>> getMessages() throws ClassNotFoundException, SQLException{
+        //TODO 2: possible join?
         HashMap<String, ArrayList<Message>> messages = new HashMap<>();
         Statement GetMessagesStatement = DataSource.INSTANCE.getConnection().createStatement();
         GetMessagesStatement.setQueryTimeout(60);// this gives the query 1 min to be executed

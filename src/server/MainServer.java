@@ -22,13 +22,9 @@ public class MainServer {
      * @throws MalformedURLException
      * @throws RemoteException
      */
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, RemoteException, MalformedURLException {
-            
-
-            // TODO code application logic here
-            IServer server=new ServerImp();
-                Naming.rebind("rmi://0.0.0.0:20000/serv", server);
-
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, RemoteException, MalformedURLException {    
+        IServer server=new ServerImp();
+        Naming.rebind("rmi://0.0.0.0:20000/serv", server);
     }
     
 }

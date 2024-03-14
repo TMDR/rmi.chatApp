@@ -19,14 +19,14 @@ import java.util.HashMap;
  *
  * @author tmdr
  */
-//all private functions are private becuase of possibility of changing data storing from live state of program to db as data becomes persistant
+//all private functions are private because of possibility of changing data storing from live state of program to db as data becomes persistant
 public class ServerImp extends UnicastRemoteObject implements IServer {
 
     private final HashMap<String, IClient> listConnected = new HashMap<>();
     private final ArrayList<String> listAllClients;
-    private final HashMap<String/*client reciever*/, ArrayList<Message>/*message plus client sender*/> offLineMsg = new HashMap<>();
+    private final HashMap<String/*client receiver*/, ArrayList<Message>/*message plus client sender*/> offLineMsg = new HashMap<>();
     //not saved in db if server is off then offline messages will be lost XD
-    private final HashMap<String/*client reciever*/, ArrayList<Message>/*message plus client sender*/> receiverMsgs;
+    private final HashMap<String/*client receiver*/, ArrayList<Message>/*message plus client sender*/> receiverMsgs;
     private final HashMap<String, IGroup> groups;
     private final TransferFromDB TDB;
     private final PersistentStorage PST;

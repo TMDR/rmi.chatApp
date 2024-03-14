@@ -121,7 +121,6 @@ public class ClientGui extends javax.swing.JFrame {
                     } catch (IOException ex1) {
                         JOptionPane.showMessageDialog(this, "Oops something went wrong", "Error",
                                 JOptionPane.ERROR_MESSAGE);
-                        System.out.println("here");
                     }
                 }
                 if (s != null) {
@@ -138,6 +137,7 @@ public class ClientGui extends javax.swing.JFrame {
             }
             if (br != null && !firstTime) {
                 while ((line = br.readLine()) != null && !line.equals("\n")) {
+                    //TODO: limitation where file name has an underscore in it, causes error.
                     String[] Tokens = line.split("_");
                     String Contents = Tokens[0].substring(Tokens[0].indexOf('[') + 1, Tokens[0].lastIndexOf(']'));// ShareableFile
                     // objects

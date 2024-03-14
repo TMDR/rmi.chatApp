@@ -22,7 +22,6 @@ public class CreateRegistry {
     public static void main(String[] args) {
         Scanner key = null;
         try {
-            // TODO code application logic here
             int port = 20000;
 
             LocateRegistry.createRegistry(port);

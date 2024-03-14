@@ -74,8 +74,7 @@ public class DataSource {
     protected Connection getConnection() throws ClassNotFoundException {
         if (con == null) {
             try {
-//                Class.forName("org.sqlite.JDBC");
-                Class.forName("com.mysql.cj.jdbc.Driver");
+                Class.forName("org.sqlite.JDBC");
                 con = DriverManager.getConnection("jdbc:sqlite:ChatAPP.db");// in SQLite it doesn't throw an exception
                                                                             // it just creates the db file
             } catch (ClassNotFoundException | SQLException ex) {
