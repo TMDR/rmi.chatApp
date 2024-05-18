@@ -15,6 +15,15 @@ import java.sql.PreparedStatement;
  * @author tmdr this class actually works
  */
 public class DataSource {
+    public static DataSource INSTANCE;
+
+    static {
+        try {
+            INSTANCE = new DataSource();
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex+"\nINSTANCE = "+INSTANCE);
+        }
+    }
 
     private Connection con = null;
 
@@ -22,10 +31,8 @@ public class DataSource {
 
     private PreparedStatement DropMessage, DropShareableFile, DropAttachement,DropClient,DropGroup,DropGroupClient;
 
-    // dropTables is never called but i call when i need to empty the db
-    public void dropTables() throws SQLException, ClassNotFoundException {// needed if reset button
-                                                                                              // hit (not required in
-                                                                                              // the given)
+    // for Debug purposes
+    public void dropTables() throws SQLException, ClassNotFoundException {
         DropAttachement = getConnection().prepareStatement("drop table if exists Attachement");
         try {
             DropAttachement.executeUpdate();
@@ -69,14 +76,11 @@ public class DataSource {
             DropGroupClient.close();
         }
     }
-
-    // this is extra normal
-    protected Connection getConnection() throws ClassNotFoundException {
+    protected Connection getConnection() {
         if (con == null) {
             try {
                 Class.forName("org.sqlite.JDBC");
-                con = DriverManager.getConnection("jdbc:sqlite:ChatAPP.db");// in SQLite it doesn't throw an exception
-                                                                            // it just creates the db file
+                con = DriverManager.getConnection("jdbc:sqlite:ChatAPP.db");
             } catch (ClassNotFoundException | SQLException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -84,11 +88,7 @@ public class DataSource {
         return con;
     }
 
-    // this creates tables i need (i do not think db is our context here so i won't
-    // comment db schema)
-    private void createTables() throws SQLException, ClassNotFoundException {// i could have created
-                                                                                                // the tables aside but
-                                                                                                // this is way better
+    private void createTables() throws SQLException {
 
         CreateShareableFile = getConnection().prepareStatement(
                 "create table if not exists ShareableFile (FileId integer NOT NULL PRIMARY KEY AUTOINCREMENT,"
@@ -102,8 +102,6 @@ public class DataSource {
         CreateMessage = getConnection().prepareStatement(
                 "create table if not exists Message (MessageId integer NOT NULL PRIMARY KEY AUTOINCREMENT,"
                         + "senderID TEXT,groupID TEXT,receiverID TEXT,time TEXT,content TEXT)");
-                        //we do not include foreign key on receiverID bcz it may be a grp or a client and this is a simple program it doesn't need to cover everything
-                        //just the necessary to keep the data persistent
         try {
             CreateMessage.executeUpdate();
         }  finally {
@@ -140,54 +138,19 @@ public class DataSource {
         }
     }
 
-    // this is Data Seeding which actually creates data i need when the db is
-    // resetted
-    protected final void DataSeeding() {
-        //no data seeding needed here
-    }
-
     private DataSource() throws ClassNotFoundException {
-        // this is kinda migration that happens everytime you run the app always
-        // maintaining a good and updated db
         File dbFile = new File("ChatAPP.db");
         boolean firstRun = !dbFile.exists();
         try {
             try {
-//                Class.forName("org.sqlite.JDBC");
-                con = DriverManager.getConnection("jdbc:sqlite:ChatAPP.db");// in SQLite it doesn't throw an exception
-                                                                            // it just creates the db file
+                con = DriverManager.getConnection("jdbc:sqlite:ChatAPP.db");
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
             createTables();
-            if (firstRun) {
-                DataSeeding();
-            }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-    }
-
-    // this is obvious
-
-    public void closeConnection() {
-        if (con != null) {
-            try {
-                con.close();
-                con = null;
-                // DriverManager.getConnection("jdbc:sqlite:ChatAPP.db;shutdown=true");
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
-
-    public static DataSource INSTANCE;// this is initialize in the static block
-    static {// this initializes INSTANCE and it gets executed when the class is loaded
-        try {
-            INSTANCE = new DataSource();
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex+"\nINSTANCE = "+INSTANCE);
         }
     }
 }

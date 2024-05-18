@@ -54,7 +54,7 @@ public class ClientGui extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    // called when the app is closing(abt to be closed)
+                    // called when the app is closing(about to be closed)
                     if(client != null)
                         client.closeStream();
                     if(serverRef != null)
@@ -139,8 +139,7 @@ public class ClientGui extends javax.swing.JFrame {
                 while ((line = br.readLine()) != null && !line.equals("\n")) {
                     //TODO: limitation where file name has an underscore in it, causes error.
                     String[] Tokens = line.split("_");
-                    String Contents = Tokens[0].substring(Tokens[0].indexOf('[') + 1, Tokens[0].lastIndexOf(']'));// ShareableFile
-                    // objects
+                    String Contents = Tokens[0].substring(Tokens[0].indexOf('[') + 1, Tokens[0].lastIndexOf(']'));
                     ArrayList<Object> messageContents = new ArrayList<>();
                     while (Contents.contains(",")) {
                         String fileDescs = Contents.substring(0, Contents.indexOf(","));// one ShareableFile

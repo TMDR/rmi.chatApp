@@ -23,13 +23,13 @@ public class PersistentStorage {
     private Statement InsertMessage;
     private Statement InsertGroupClient;
 
-    public void resetDB() throws ClassNotFoundException, SQLException {
-        DataSource.INSTANCE.dropTables();
-    }
+//    public void resetDB() throws ClassNotFoundException, SQLException {
+//        DataSource.INSTANCE.dropTables();
+//    }
 
-    public void addClient(String ID) throws ClassNotFoundException, SQLException {
+    public void addClient(String ID) throws SQLException {
         InsertClient = DataSource.INSTANCE.getConnection().createStatement();
-        InsertClient.setQueryTimeout(60); // set timeout to 60 sec as given says no query takes more than 1 min
+        InsertClient.setQueryTimeout(60);
         try {
             InsertClient.executeUpdate("insert into Client values('" + ID + "')");
         } finally {
@@ -37,9 +37,9 @@ public class PersistentStorage {
         }
     }
 
-    public void addGroup(String ID, String AdminID) throws ClassNotFoundException, SQLException {
+    public void addGroup(String ID, String AdminID) throws SQLException {
         InsertGroup = DataSource.INSTANCE.getConnection().createStatement();
-        InsertGroup.setQueryTimeout(60); // set timeout to 60 sec as given says no query takes more than 1 min
+        InsertGroup.setQueryTimeout(60);
         try {
             InsertGroup.executeUpdate("insert into `Group` values('" + ID + "','" + AdminID + "')");
         } finally {
@@ -47,9 +47,9 @@ public class PersistentStorage {
         }
     }
 
-    public void addMessage(Message msg) throws SQLException, ClassNotFoundException {
+    public void addMessage(Message msg) throws SQLException {
         InsertMessage = DataSource.INSTANCE.getConnection().createStatement();
-        InsertMessage.setQueryTimeout(60); // set timeout to 60 sec as given says no query takes more than 1 min
+        InsertMessage.setQueryTimeout(60);
         String MessageID = "";
         try {
             InsertMessage
@@ -66,7 +66,7 @@ public class PersistentStorage {
         PreparedStatement pstmt = null;
         PreparedStatement pstmt2 = null;
         try {
-            for (int i = 0; i < contents.size() - 1; i++) {// files save
+            for (int i = 0; i < contents.size() - 1; i++) {
                 ShareableFile file = (ShareableFile) contents.get(i);
                 String stmt = "insert into ShareableFile(content,Title,FileType) values(?,?,?)";
                 pstmt = DataSource.INSTANCE.getConnection().prepareStatement(stmt);
@@ -93,9 +93,9 @@ public class PersistentStorage {
         }
     }
 
-    public void addMemberToGroup(String memberID,String groupID) throws ClassNotFoundException, SQLException{
+    public void addMemberToGroup(String memberID,String groupID) throws SQLException{
         InsertGroupClient = DataSource.INSTANCE.getConnection().createStatement();
-        InsertGroupClient.setQueryTimeout(60); // set timeout to 60 sec as given says no query takes more than 1 min
+        InsertGroupClient.setQueryTimeout(60);
         try {
             InsertGroupClient.executeUpdate("insert into GroupClient(ClientID,GroupID) values('" + memberID + "','" + groupID + "');");
         }catch(SQLException e){
@@ -104,9 +104,9 @@ public class PersistentStorage {
             InsertGroupClient.close();
         }
     }
-    public void removeMemberToGroup(String memberID,String groupID) throws ClassNotFoundException, SQLException{
+    public void removeMemberToGroup(String memberID,String groupID) throws SQLException{
         InsertGroupClient = DataSource.INSTANCE.getConnection().createStatement();
-        InsertGroupClient.setQueryTimeout(60); // set timeout to 60 sec as given says no query takes more than 1 min
+        InsertGroupClient.setQueryTimeout(60);
         try {
             InsertGroupClient.executeUpdate("delete FROM GroupClient where ClientID = '" + memberID + "' and GroupID = '" + groupID + "';");
         } finally {

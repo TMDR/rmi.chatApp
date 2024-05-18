@@ -14,8 +14,8 @@ import java.util.ArrayList;
  * @author tmdr
  */
 public class Message implements Serializable{
-    private ArrayList<Object> messageContents;//may be anything text number or array of bytes ... may aswell be a object that has array of bytes plus a text
-    private String senderID;//definitely a client
+    private ArrayList<Object> messageContents;
+    private String senderID;
     private String groupID;
     private String receiverID;
     private LocalDateTime time;

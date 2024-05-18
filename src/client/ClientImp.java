@@ -41,10 +41,9 @@ import Interfaces.*;
 public class ClientImp extends UnicastRemoteObject implements IClient {
 
     ArrayList<Message> msgs;
-    //grouping msgs if grp or not through Message.getGroup() and then classing them
     DefaultListModel<String> chatModel;
     DefaultListModel<String> clientModel;
-    HashMap<String, Boolean/*isOnline*/> clientsOnlineStatus;
+    HashMap<String, Boolean> clientsOnlineStatus;
     ArrayList<String> clients;
     PrintStream s;
     ConversationGui cnvGui;
@@ -78,7 +77,7 @@ public class ClientImp extends UnicastRemoteObject implements IClient {
     }
 
     @Override
-    public void closeStream() {//to be called when closing the app because if it wasn't closed the info file will be empty
+    public void closeStream() {
         s.close();
     }
 
@@ -96,7 +95,6 @@ public class ClientImp extends UnicastRemoteObject implements IClient {
             }
             chatModel.addElement(chatNew);
         }
-        //msgs that show for that client from the server are either sent by him or to him so i am making sure the sender is one he is chatting with rn or he is the receiver
         if (this.cnvGui != null) {
             if (this.cnvGui.isIsGroup()) {
                 if (msg.getGroupID() != null && msg.getGroupID().equals(this.cnvGui.getCnvID())/*same grp*/) {
@@ -104,7 +102,7 @@ public class ClientImp extends UnicastRemoteObject implements IClient {
                     if (msg.getSenderID().equals(ClientGui.ownID)) {//i could be the sender
                         messagePane.setLayout(new FlowLayout(FlowLayout.RIGHT));
                         messagePane.add(messageShow(msg, false));
-                    } else {//i could be the receiver
+                    } else {
                         messagePane.setLayout(new FlowLayout(FlowLayout.LEFT));
                         messagePane.add(messageShow(msg, true));
                     }
@@ -132,7 +130,7 @@ public class ClientImp extends UnicastRemoteObject implements IClient {
         ArrayList<Object> contents = msg.getMessageContents();
         int i;
         JPanel files = new JPanel(new GridLayout(2, (contents.size() - 1) / 2 + 1));
-        for (i = 0; i < contents.size() - 1; i++) {//for every ShareableFile
+        for (i = 0; i < contents.size() - 1; i++) {
             ShareableFile mkof = (ShareableFile) contents.get(i);
             JPanel filePanel = new JPanel(new BorderLayout());
             filePanel.add(new JLabel(mkof.getFileType()), BorderLayout.NORTH);

@@ -27,10 +27,10 @@ public class TransferFromDB {
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     }
 
-    public ArrayList<String> getClients() throws SQLException, ClassNotFoundException {
+    public ArrayList<String> getClients() throws SQLException {
         ArrayList<String> clients = new ArrayList<>();
         Statement GetTaxStatement = DataSource.INSTANCE.getConnection().createStatement();
-        GetTaxStatement.setQueryTimeout(60);// this gives the query 1 min to be executed
+        GetTaxStatement.setQueryTimeout(60);
         ResultSet rs = GetTaxStatement.executeQuery("select * from Client;");
         while (rs.next()) {
             clients.add(rs.getString(1));
@@ -41,14 +41,14 @@ public class TransferFromDB {
         //TODO 1: possible join?
         HashMap<String, IGroup> groups = new HashMap<>();
         Statement GetGroupIDsStatement = DataSource.INSTANCE.getConnection().createStatement();
-        GetGroupIDsStatement.setQueryTimeout(60);// this gives the query 1 min to be executed
+        GetGroupIDsStatement.setQueryTimeout(60);
         ResultSet rs = GetGroupIDsStatement.executeQuery("select * from `Group`;");
         while (rs.next()) {
             String groupID = rs.getString(1);
             String adminID = rs.getString(2);
             IGroup grp = new GroupImp(adminID, groupID, clientsConnected);
             Statement GetMembersStatement = DataSource.INSTANCE.getConnection().createStatement();
-            GetMembersStatement.setQueryTimeout(60);// this gives the query 1 min to be executed
+            GetMembersStatement.setQueryTimeout(60);
             ResultSet rs2 = GetMembersStatement.executeQuery("select * from GroupClient where GroupID = '"+groupID+"';");
             while(rs2.next()){
                 grp.addClient(adminID, rs2.getString(2));
@@ -58,11 +58,11 @@ public class TransferFromDB {
         return groups;
     }
 
-    public HashMap<String, ArrayList<Message>> getMessages() throws ClassNotFoundException, SQLException{
+    public HashMap<String, ArrayList<Message>> getMessages() throws  SQLException{
         //TODO 2: possible join?
         HashMap<String, ArrayList<Message>> messages = new HashMap<>();
         Statement GetMessagesStatement = DataSource.INSTANCE.getConnection().createStatement();
-        GetMessagesStatement.setQueryTimeout(60);// this gives the query 1 min to be executed
+        GetMessagesStatement.setQueryTimeout(60);
         ResultSet rs = GetMessagesStatement.executeQuery("select * from Message;");
         while(rs.next()){
             ArrayList<Object> messageContents = new ArrayList<>();
@@ -75,7 +75,7 @@ public class TransferFromDB {
             LocalDateTime time = LocalDateTime.parse(LocalTime, formatter);
 
             Statement GetFilesStatement = DataSource.INSTANCE.getConnection().createStatement();
-            GetFilesStatement.setQueryTimeout(60);// this gives the query 1 min to be executed
+            GetFilesStatement.setQueryTimeout(60);
             ResultSet rs2 = GetFilesStatement.executeQuery("select ShareableFile.* from ShareableFile join Attachement on ShareableFile.FileId = Attachement.FileId where Attachement.MessageId = '"+messageID+"';");
             while(rs2.next()){
                 messageContents.add(new ShareableFile(rs2.getBytes(2), rs2.getString(3), rs2.getString(4)));

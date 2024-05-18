@@ -21,7 +21,7 @@ public class GroupImp extends UnicastRemoteObject implements IGroup {
 
     private HashMap<String, IClient> members = new HashMap<>();
     private String adminID;
-    private HashMap<String/*client reciever*/, ArrayList<Message>/*message plus client sender*/> offLineMsg = new HashMap<>();
+    private HashMap<String, ArrayList<Message>> offLineMsg = new HashMap<>();
     private String ID;
     private HashMap<String,IClient> clientsConnected;
     private final PersistentStorage PST;
@@ -39,7 +39,7 @@ public class GroupImp extends UnicastRemoteObject implements IGroup {
     }
 
     @Override
-    public ArrayList<String> sendToAll(Message msg/*needed if client is offline i should schedule it*/) throws RemoteException {
+    public ArrayList<String> sendToAll(Message msg) throws RemoteException {
         if(!adminID.equals(msg.getSenderID()) && !members.containsKey(msg.getSenderID()))
             return new ArrayList<>();
         ArrayList<String> membersplusadmin = new ArrayList<>(((HashMap<String,IClient>)members.clone()).keySet());
@@ -63,10 +63,10 @@ public class GroupImp extends UnicastRemoteObject implements IGroup {
     @Override
     public void addClient(String senderID, String id) throws RemoteException, ClassNotFoundException, SQLException {
         if (!senderID.equals(adminID)) {
-            throw new RemoteException("You are not admin talk to the admin so he can add a client");
+            throw new RemoteException("You are not an Admin!");
         }
         if (members.containsKey(id)) {
-            throw new RemoteException("client already in !");
+            throw new RemoteException("Client already in!");
         }
         if(!ServerImp.initializing)
             PST.addMemberToGroup(id, ID);
@@ -83,10 +83,10 @@ public class GroupImp extends UnicastRemoteObject implements IGroup {
     @Override
     public void removeClient(String senderID, String id) throws RemoteException, ClassNotFoundException, SQLException {
         if (!senderID.equals(adminID)) {
-            throw new RemoteException("You are not admin talk to the admin so he can remove a client");
+            throw new RemoteException("You are not an Admin!");
         }
         if (!members.containsKey(id)) {
-            throw new RemoteException("client not in group !");
+            throw new RemoteException("Client not in group!");
         }
         PST.removeMemberToGroup(id,ID);
         members.get(id).groupRemovingNotifier(ID);

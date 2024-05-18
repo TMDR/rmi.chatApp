@@ -21,5 +21,4 @@ public interface IGroup extends Remote{
     public void removeClient(String senderID,String id) throws RemoteException, ClassNotFoundException, SQLException;
     public ArrayList<String> getAllClients() throws RemoteException;
     public ArrayList<Message> getOfflineMessages(String idClient) throws RemoteException;
-    //group schedules offline messages for server to get then when reconnect is called
 }
