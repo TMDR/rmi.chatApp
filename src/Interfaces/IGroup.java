@@ -10,15 +10,11 @@ import java.util.ArrayList;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author tmdr
- */
 public interface IGroup extends Remote{
-    public ArrayList<String> sendToAll(Message msg) throws RemoteException;
-    public void addClient(String senderID,String id) throws RemoteException, ClassNotFoundException, SQLException;
-    public boolean contains(String id) throws RemoteException;
-    public void removeClient(String senderID,String id) throws RemoteException, ClassNotFoundException, SQLException;
-    public ArrayList<String> getAllClients() throws RemoteException;
-    public ArrayList<Message> getOfflineMessages(String idClient) throws RemoteException;
+    ArrayList<String> sendToAll(Message msg) throws RemoteException;
+    void addClient(String senderID,String id) throws RemoteException, ClassNotFoundException, SQLException;
+    boolean contains(String id) throws RemoteException;
+    void removeClient(String senderID,String id) throws RemoteException, ClassNotFoundException, SQLException;
+    ArrayList<String> getAllClients() throws RemoteException;
+    ArrayList<Message> getOfflineMessages(String idClient) throws RemoteException;
 }

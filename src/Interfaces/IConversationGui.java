@@ -3,9 +3,9 @@ package Interfaces;
 import javax.swing.JPanel;
 
 public interface IConversationGui {
-    public String getCnvID();
+    String getCnvID();
 
-    public boolean isIsGroup();
+    boolean isIsGroup();
 
-    public JPanel getMsgsBox();
+    JPanel getMsgsBox();
 }

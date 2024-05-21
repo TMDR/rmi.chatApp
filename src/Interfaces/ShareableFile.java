@@ -7,10 +7,6 @@ import java.io.Serializable;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author tmdr
- */
 public class ShareableFile implements Serializable{
     private byte[] content;
     private String Title;

@@ -7,19 +7,15 @@ package Interfaces;/*
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-/**
- *
- * @author tmdr
- */
 public interface IClient extends Remote{
-    public void notifier(Message msg) throws RemoteException;
-    public void onlineNotifier(String ID,boolean isOnline) throws RemoteException;
-    public void clientsNotifier(String ID) throws RemoteException;
-    public void closeStream() throws RemoteException;
-    public void groupAdditionNotifier(String groupID) throws RemoteException;
-    public void groupRemovingNotifier(String groupID) throws RemoteException;
-    public void setCnv(IConversationGui cvnGui) throws RemoteException;
-    public void removeCnv() throws RemoteException;
-    public void groupMemberAdditionNotifier(String groupID,String memberID) throws RemoteException;
-    public void groupMemberRemovingNotifier(String groupID,String memberID) throws RemoteException;
+    void notifier(Message msg) throws RemoteException;
+    void onlineNotifier(String ID,boolean isOnline) throws RemoteException;
+    void clientsNotifier(String ID) throws RemoteException;
+    void closeStream() throws RemoteException;
+    void groupAdditionNotifier(String groupID) throws RemoteException;
+    void groupRemovingNotifier(String groupID) throws RemoteException;
+    void setCnv(IConversationGui cvnGui) throws RemoteException;
+    void removeCnv() throws RemoteException;
+    void groupMemberAdditionNotifier(String groupID,String memberID) throws RemoteException;
+    void groupMemberRemovingNotifier(String groupID,String memberID) throws RemoteException;
 }

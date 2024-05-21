@@ -10,10 +10,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
-/**
- *
- * @author tmdr this class actually works
- */
 public class DataSource {
     public static DataSource INSTANCE;
 
@@ -37,6 +33,7 @@ public class DataSource {
         try {
             DropAttachement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
             DropAttachement.close();
         }
@@ -44,6 +41,8 @@ public class DataSource {
         try {
             DropMessage.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+
         } finally {
             DropMessage.close();
         }
@@ -51,6 +50,8 @@ public class DataSource {
         try {
             DropShareableFile.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+
         } finally {
             DropShareableFile.close();
         }
@@ -58,6 +59,8 @@ public class DataSource {
         try {
             DropClient.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+
         } finally {
             DropClient.close();
         }
@@ -65,6 +68,8 @@ public class DataSource {
         try {
             DropGroup.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+
         } finally {
             DropGroup.close();
         }
@@ -72,6 +77,8 @@ public class DataSource {
         try {
             DropGroupClient.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+
         } finally {
             DropGroupClient.close();
         }

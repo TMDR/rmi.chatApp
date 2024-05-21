@@ -9,10 +9,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-/**
- *
- * @author tmdr
- */
+
 public class MainServer {
 
     /**

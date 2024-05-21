@@ -34,10 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import Interfaces.*;
-/**
- *
- * @author tmdr
- */
+
 public class ClientImp extends UnicastRemoteObject implements IClient {
 
     ArrayList<Message> msgs;

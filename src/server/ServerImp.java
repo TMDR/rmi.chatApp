@@ -15,10 +15,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author tmdr
- */
 public class ServerImp extends UnicastRemoteObject implements IServer {
 
     private final HashMap<String, IClient> listConnected = new HashMap<>();

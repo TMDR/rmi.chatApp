@@ -9,11 +9,7 @@ import java.util.ArrayList;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author tmdr
- */
-public class Message implements Serializable{
+public class Message implements Serializable {
     private ArrayList<Object> messageContents;
     private String senderID;
     private String groupID;

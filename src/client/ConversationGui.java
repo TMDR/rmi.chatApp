@@ -40,10 +40,7 @@ import Interfaces.*;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/**
- *
- * @author tmdr
- */
+
 public class ConversationGui extends javax.swing.JFrame implements IConversationGui{
 
     /**

@@ -13,10 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author tmdr
- */
 public class GroupImp extends UnicastRemoteObject implements IGroup {
 
     private HashMap<String, IClient> members = new HashMap<>();

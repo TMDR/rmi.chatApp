@@ -12,10 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- *
- * @author tmdr
- */
 public class PersistentStorage {
 
     private Statement InsertClient;
